@@ -1,0 +1,13 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags - Matt Windsor&#39;s Web Thingy</title>
+    <link>https://MattWindsor91.github.io/tags/</link>
+    <description>Recent content in Tags on Matt Windsor&#39;s Web Thingy</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    
+        <atom:link href="https://MattWindsor91.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>
