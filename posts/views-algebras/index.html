@@ -73,6 +73,9 @@ what connections do they have to existing, but slightly obscure, varieties?</p>
 who doesn&rsquo;t have the necessary background to ramble coherently about abstract
 algebras.</p>
 
+<p><strong>Update (7 Oct):</strong> corrections to various bits of mathematics in the post,
+most pointed out by <a href="https://twitter.com/ngevd">@Ngevd</a> &mdash; thanks!</p>
+
 <h1 id="the-original-algebras">The original algebras</h1>
 
 <p>These algebraic varieties correspond to those introduced in the original
@@ -170,8 +173,9 @@ in perhaps the most obvious way:</p>
 <li>\(a \sqsubseteq a \bullet b\) <em>(dot-inflationary)</em></li>
 </ul>
 
-<p>(If we have a monoid, the first rule implies the second, by taking
-\(a = \epsilon\).)</p>
+<p>(<strong>Update (7 Oct)</strong>: previous revisions of this blog post erroneously claimed that, if we have a monoid, the first rule implies the second by taking
+\(a = \epsilon\).  Thanks to <a href="https://twitter.com/ngevd">@ngevd</a> for pointing
+this, and other, mistakes out!)</p>
 
 <p>We then add some laws that retrospectively force equivalence to become the
 relation induced by taking
@@ -191,7 +195,7 @@ But we didn&rsquo;t.)</p>
 <p>On views monoids, we can take
 \(\epsilon \bullet a \equiv a\)
 and
-\(\epsilon \sqsubseteq \epsilon \equiv a\)
+\(\epsilon \sqsubseteq \epsilon \bullet a\)
 to derive the law
 \(\epsilon \sqsubseteq a\),
 which cements the unit as the minimum element of the ordering.</p>
@@ -409,7 +413,7 @@ that we could do with is something like
 a
 \mathop{\bullet\!-}
 (b \bullet c)
-\;=\;
+\;\equiv\;
 (a
 \mathop{\bullet\!-}
 b) \mathop{\bullet\!-} c
@@ -423,12 +427,12 @@ down the atoms of a view: some rule
 (a \bullet b)
 \mathop{\bullet\!-}
 c
-\;=\;
+\;\equiv\;
 (a
 \mathop{\bullet\!-}
 c)
 \bullet
-(a
+(b
 \mathop{\bullet\!-}
 R)
 \)
@@ -533,7 +537,15 @@ the sofa in Starling.</li>
 <li>Are there any useful generalisations of the multiset-specific subtraction
 decision process, and do they lead to interesting algebraic varieties?</li>
 <li>Is every (semi-residuated, residuated, cancellative, <em>etc.</em>) semigroup a
-monoid (eg, do the laws imply the existence of a unique unit)?</li>
+monoid (eg, do the laws imply the existence of a unique unit)?
+
+<ul>
+<li><strong>Update (7 Oct)</strong>: <a href="https://twitter.com/ngevd">@Ngevd</a>
+pointed out that the positive integers form a
+semi-residuated semigroup that <em>isn&rsquo;t</em> a monoid.  I&rsquo;m actively trying to
+work out a use for them as a views algebra, but it&rsquo;s still quite neat that
+they form one :)</li>
+</ul></li>
 <li>Is there any way to extend these varieties with a notion of a
 &lsquo;largest&rsquo; view (representing, for example, an assertion that no states can
 satisfy), without collapsing the whole variety down to a singleton carrier?
