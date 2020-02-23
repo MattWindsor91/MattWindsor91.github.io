@@ -52,7 +52,7 @@ lot of the theory involves the manipulation of &lsquo;views algebras&rsquo;: abs
 combinations of sets of &lsquo;views&rsquo; (bits of information about a shared state)
 and operations that join and interpret them.</p>
 <p>One of the
-issues I've been grappling with since the
+issues I&rsquo;ve been grappling with since the
 <a href="https://doi.org/10.1007/978-3-319-63387-9_27">2017 Starling paper</a> is how we
 take the algebraic shufflings the Starling tool performs and project them
 into the meta-theory.  Ideally, each part of the Starling theory that involves
@@ -65,13 +65,13 @@ these are <a href="https://en.wikipedia.org/wiki/Residuated_lattice">residuated 
 This got me thinking: are the varieties from my thesis the right ones, and
 what connections do they have to existing, but slightly obscure, varieties?</p>
 <p><strong>Warning:</strong> this post contains rambling about abstract algebras from someone
-who doesn't have the necessary background to ramble coherently about abstract
+who doesn&rsquo;t have the necessary background to ramble coherently about abstract
 algebras.</p>
 <p><strong>Update (7 Oct):</strong> corrections to various bits of mathematics in the post,
 most pointed out by <a href="https://twitter.com/ngevd">@Ngevd</a> &mdash; thanks!</p>
 <h1 id="the-original-algebras">The original algebras</h1>
 <p>These algebraic varieties correspond to those introduced in the original
-paper, with one fairly pedantic change: I'll define all of the laws
+paper, with one fairly pedantic change: I&rsquo;ll define all of the laws
 over an equivalence relation \(\equiv\), not equality.  This equivalence can be
 anything at all, but in practice means &lsquo;refers to the same state set&rsquo;.</p>
 <p>A general rule of thumb is that, when we say &lsquo;views <em>XYZ</em>', we mean
@@ -83,7 +83,7 @@ commutative semigroup.  This gives us a binary operator \(\bullet\) (or &lsquo;d
 <li>\(a \bullet b \equiv b \bullet a\) <em>(dot-commutativity)</em></li>
 <li>\(a \bullet (b \bullet c) \equiv (a \bullet b) \bullet c\) <em>(dot-associativity)</em></li>
 </ul>
-<p>As we're defining the semigroup over an equivalence \(\equiv\), we need an extra
+<p>As we&rsquo;re defining the semigroup over an equivalence \(\equiv\), we need an extra
 bit of bureaucracy that tells us that we can use equivalences to rewrite both
 sides of a \(\bullet\):</p>
 <ul>
@@ -106,7 +106,7 @@ of interference reasoning.</p>
 <h1 id="ordering-and-residuation">Ordering and residuation</h1>
 <p>One of the big bits of theory that goes into the tool is the rearrangement of
 the Views axiom soundness property (which resembles a proof rule à la
-Owicki&ndash;Gries) into a form that's easy to automate.  Axiom soundness looks
+Owicki&ndash;Gries) into a form that&rsquo;s easy to automate.  Axiom soundness looks
 like this:</p>
 
 \[
@@ -121,22 +121,22 @@ like this:</p>
 \]
 <p>Part
 of this involves subtracting the postcondition from both sides of the
-interference check.  As the LHS of the check doesn't <em>have</em> the postcondition,
+interference check.  As the LHS of the check doesn&rsquo;t <em>have</em> the postcondition,
 we need to tweak views semigroups so that they:</p>
 <ol>
 <li>have an operator that represents &lsquo;removing knowledge&rsquo; from a view;</li>
 <li>define (1) in the most general way possible (for now).</li>
 </ol>
-<p>I'll get to (1) in a bit but, to set up (2), I'll take a detour and look at
+<p>I&rsquo;ll get to (1) in a bit but, to set up (2), I&rsquo;ll take a detour and look at
 adding ordering to views semigroups.  This pays off in letting us write laws
 over inequalities rather than equivalences, and then later nudges us towards
 the connection with residuated lattices.</p>
 <h2 id="ordered-views-semigroups">Ordered views semigroups</h2>
-<p>An ordering on views is an ordering on knowledge.  Usually, it'll be the inverse
+<p>An ordering on views is an ordering on knowledge.  Usually, it&rsquo;ll be the inverse
 of the inclusion ordering on the underlying state sets.  This means that view
-ordering is partial: for example, &lsquo;the toaster is plugged in&rsquo; and &lsquo;it's raining
+ordering is partial: for example, &lsquo;the toaster is plugged in&rsquo; and &lsquo;it&rsquo;s raining
 in Paris&rsquo; have no ordering relation.</p>
-<p>Let's call this ordering operator
+<p>Let&rsquo;s call this ordering operator
 \(\sqsubseteq\), and define it
 in perhaps the most obvious way:</p>
 <ul>
@@ -149,11 +149,11 @@ this, and other, mistakes out!)</p>
 <p>We then add some laws that retrospectively force equivalence to become the
 relation induced by taking
 \(\sqsubseteq\)
-in both directions.  (If we'd started with
-the ordering first, we'd not need this, and just derive
+in both directions.  (If we&rsquo;d started with
+the ordering first, we&rsquo;d not need this, and just derive
 \(\equiv\)
 from \(\sqsubseteq\).
-But we didn't.)</p>
+But we didn&rsquo;t.)</p>
 <ul>
 <li>\(a \equiv b \implies a \sqsubseteq b\) <em>(inc-equiv)</em></li>
 <li>\((a \sqsubseteq b \wedge b \sqsubseteq a) \implies a \equiv b\) <em>(inc-antisymmetry)</em></li>
@@ -166,22 +166,22 @@ and
 to derive the law
 \(\epsilon \sqsubseteq a\),
 which cements the unit as the minimum element of the ordering.</p>
-<p>At this stage, you might wonder if there's a maximum element
+<p>At this stage, you might wonder if there&rsquo;s a maximum element
 (representing, for instance, the observation that matches no states).  While we
-could add one, it won't play well with some of the later varieties in this
+could add one, it won&rsquo;t play well with some of the later varieties in this
 post, and working out how to rearrange them so that it will is left as an
 exercise to the reader.</p>
 <h2 id="semi-residuated-views-semigroups">Semi-residuated views semigroups</h2>
-<p>Let's now add in an operator that will let us express view subtraction.</p>
-<p>I'll call this new operator &lsquo;sub&rsquo; (which is a fairly inaccurate name, but is
+<p>Let&rsquo;s now add in an operator that will let us express view subtraction.</p>
+<p>I&rsquo;ll call this new operator &lsquo;sub&rsquo; (which is a fairly inaccurate name, but is
 the same number of letters and syllables as &lsquo;dot&rsquo;).
-As a cheeky nod to separation logic, I'll use the notation
+As a cheeky nod to separation logic, I&rsquo;ll use the notation
 \(\bullet\!-\); older Starling
 works use
 \(\setminus\), which to me is a bit misleading.
 (By swapping the parameters around, we get the famous
 \(-\!\bullet\), or &lsquo;magic wand&rsquo;,
-of separation logic.  Through commutativity, we'll have that
+of separation logic.  Through commutativity, we&rsquo;ll have that
 \(\bullet\!-\) and
 \(-\!\bullet\)
 are the two residual operators once we get to fully residuated algebraic
@@ -192,7 +192,7 @@ structures.)</p>
 <li>All properties of ordered views semigroups</li>
 </ul>
 <p>I used to call these &lsquo;subtractive views semigroups&rsquo;, and this is probably
-the name they'll appear under in the thesis.</p>
+the name they&rsquo;ll appear under in the thesis.</p>
 <h3 id="a-rambling-starling-detour">A rambling Starling detour</h3>
 <p>This definition looks rather bare: it only contains one side of the
 residual property!  It turns out that most parts of Starling actually only need
@@ -204,7 +204,7 @@ rule.  Both rewrites just change the part of the rule with the
 \forall g \in \mathsf{View} \ldotp
 [\![ c ]\!](\lfloor p \bullet  (g \mathop{\bullet\!-} q) \rfloor) \subseteq \lfloor g \rfloor
 \]
-<p>The intuition here is that, instead of quantifying over context views, we're
+<p>The intuition here is that, instead of quantifying over context views, we&rsquo;re
 quantifying over <em>goal</em> views: effectively, each
 \(g\) stands for some
 \(q \bullet v\) we might have considered in the original
@@ -224,7 +224,7 @@ do need an extra property &mdash;
     \lfloor p \bullet ((q \bullet v) \mathop{\bullet\!-} q) \rfloor
   \)
 
-&mdash; but this needn't actually be a property on the views algebra if the
+&mdash; but this needn&rsquo;t actually be a property on the views algebra if the
 reifier works in a certain way.</p>
 <p>Incidentally, the <em>actual</em> rule that most of the Starling work is based on
 goes through a second rewrite:</p>
@@ -243,15 +243,15 @@ goes through a second rewrite:</p>
 
 \(\mathsf{Definer}\) is effectively a table of mappings from
 &lsquo;defining&rsquo; views &mdash; views that actually have some sort of meaning in the
-shared state &mdash; to their matching state sets.  This rewrite doesn't actually
+shared state &mdash; to their matching state sets.  This rewrite doesn&rsquo;t actually
 need any further properties other than semi-residuation and extra property
 above, though.</p>
 <h1 id="the-twilight-zone">The twilight zone</h1>
 <p>Certain specific instantiations of Starling need more structure from the
-views algebra.  When I was writing the thesis, I thought that I'd be able to
+views algebra.  When I was writing the thesis, I thought that I&rsquo;d be able to
 come up with a general algebra that captured all the things that those
 instantiations need without over-restricting.  This led to &lsquo;separating&rsquo; views
-semigroups, which I'll discuss in a bit.  &lsquo;Separating&rsquo; semigroups are a bit
+semigroups, which I&rsquo;ll discuss in a bit.  &lsquo;Separating&rsquo; semigroups are a bit
 of a hack.</p>
 <p>First though: I mentioned residuated monoids a while back &mdash; where would these
 fit in the grand scheme of views algebras?</p>
@@ -263,8 +263,8 @@ property:</p>
 <li>\(a \mathop{\bullet\!-} b \sqsubseteq c \implies a \sqsubseteq b \bullet c\) <em>(sub-residual-backwards)</em></li>
 <li>All properties of semi-residuated views semigroups</li>
 </ul>
-<p>I don't know of anything Starling-related that uses <em>just</em> this property, so
-I'll move on.  (Of course, a residuated views monoid is just a residuated
+<p>I don&rsquo;t know of anything Starling-related that uses <em>just</em> this property, so
+I&rsquo;ll move on.  (Of course, a residuated views monoid is just a residuated
 views semigroup that is also a residuated views monoid.)</p>
 <h2 id="cancellative-views-semigroups">Cancellative views semigroups?</h2>
 <p>A rather famous subclass of views semigroups is <em>separation algebras</em>
@@ -309,7 +309,7 @@ there was a connection between the two once.</p>
 <p>Ok, this is where things get messy.  Later parts of the Starling work assume
 that we can decidably rewrite any view (or, more correctly, an expression tree
 representing the view) so that the view is in something called <em>list-normalised
-form</em>: it's a chain
+form</em>: it&rsquo;s a chain
 
 \(
 a \bullet b \bullet \dotsb \bullet \epsilon
@@ -343,7 +343,7 @@ s depends a <em>lot</em> on the semantics of
 \(
 \mathop{\bullet\!-}
 \)
-, and the existing classes don't say much of use.  One of the rules
+, and the existing classes don&rsquo;t say much of use.  One of the rules
 that we could do with is something like
 
 \(
@@ -378,7 +378,7 @@ R)
 \(c\) left over from the first subtraction.
 Then, we just need some model for subtracting atoms from atoms &mdash; this depends
 wildly on what the atoms <em>are</em>, and various forms exist in the thesis!</p>
-<p>At this stage of Starling's development, we had a tool, and the tool handled
+<p>At this stage of Starling&rsquo;s development, we had a tool, and the tool handled
 multisets (the free commutative monoid!).  As a result, its decision process
 handled subtraction over multisets.  When I came to formalise this in the
 thesis, I took things I knew about multisets, tried to find the smallest
@@ -395,7 +395,7 @@ of these and previous laws.</p>
 long at the &lsquo;truncated subtraction&rsquo; operator on natural numbers.  This property
 neatly solves the &lsquo;what is the remainder?&rsquo; problem for rewriting
 \(\mathop{\bullet\!-}\); unfortunately, it does so
-by seemingly restricting the definition of the operator so much that I've only
+by seemingly restricting the definition of the operator so much that I&rsquo;ve only
 been able to instantiate four types of &lsquo;separating&rsquo; semigroup:</p>
 <ul>
 <li>singletons;</li>
@@ -407,7 +407,7 @@ precisely multisets!);</li>
 </ul>
 <p>Indeed, it may well be that all of these varieties are just isomorphic to
 multisets, which is&hellip; depressing, to say the least.  However, multisets have
-proven to be a versatile views model in the past 5 years, so maybe it isn't all
+proven to be a versatile views model in the past 5 years, so maybe it isn&rsquo;t all
 that bad :)</p>
 <h3 id="as-residuated-lattices">As residuated lattices</h3>
 <p>One interesting corollary of the accidental restriction of &lsquo;separating&rsquo;
@@ -428,9 +428,9 @@ a \mathop{\bullet\!-} (a
 b)
 \)
 .  Proofs left as an exercise to the reader.</p>
-<p>It'd be nice (by which I mean it'd give me a tingly, warm sensation) if
+<p>It&rsquo;d be nice (by which I mean it&rsquo;d give me a tingly, warm sensation) if
 most, or all, useful views algebras formed residuated lattices.  As of yet,
-I haven't actually thought of anything that this gives us (though some of the
+I haven&rsquo;t actually thought of anything that this gives us (though some of the
 usual lattice properties about the join operation appear in some of the Coq
 mechanisation for list normalisation, so&hellip; maybe?)</p>
 <h1 id="conclusion">Conclusion</h1>
@@ -440,20 +440,20 @@ more algebraic structure was, and is, something that massively appeals to me
 as a functional-programmer-in-exile.  Certainly, adding ordering and a weak
 form of &lsquo;view subtraction&rsquo; seems to work quite well in practice.</p>
 <p>However, a spectre is haunting the world of views algebra varieties that I
-explored in my PhD &mdash; the spectre of &lsquo;subtractive&rsquo; views semigroups.  It's
+explored in my PhD &mdash; the spectre of &lsquo;subtractive&rsquo; views semigroups.  It&rsquo;s
 becoming increasingly clear to me that these are a red herring, a wrong turn in
-the otherwise quite neat and tidy progression of varieties.  What isn't clear
+the otherwise quite neat and tidy progression of varieties.  What isn&rsquo;t clear
 yet is what, if anything, should replace them.</p>
 <h2 id="open-problems">Open problems</h2>
-<p>These aren't necessarily &lsquo;challenging&rsquo; problems &mdash; just ones for which I
-haven't been able to allocate enough brain space.</p>
+<p>These aren&rsquo;t necessarily &lsquo;challenging&rsquo; problems &mdash; just ones for which I
+haven&rsquo;t been able to allocate enough brain space.</p>
 <ul>
-<li>Is the &lsquo;separating&rsquo; variety inhabited by anything that isn't isomorphic to
+<li>Is the &lsquo;separating&rsquo; variety inhabited by anything that isn&rsquo;t isomorphic to
 multisets?</li>
 <li>Are there any interesting algebraic varieties that add structure to
 semi-residuated semigroups, but are more elegant than the progression shown
 above?</li>
-<li>Does cancellativity give us anything?  I feel like it should, as it's a key
+<li>Does cancellativity give us anything?  I feel like it should, as it&rsquo;s a key
 ingredient of real-world views algebras, but it seems to have fallen behind
 the sofa in Starling.</li>
 <li>Are there any useful generalisations of the multiset-specific subtraction
@@ -463,8 +463,8 @@ monoid (eg, do the laws imply the existence of a unique unit)?
 <ul>
 <li><strong>Update (7 Oct)</strong>: <a href="https://twitter.com/ngevd">@Ngevd</a>
 pointed out that the positive integers form a
-semi-residuated semigroup that <em>isn't</em> a monoid.  I'm actively trying to
-work out a use for them as a views algebra, but it's still quite neat that
+semi-residuated semigroup that <em>isn&rsquo;t</em> a monoid.  I&rsquo;m actively trying to
+work out a use for them as a views algebra, but it&rsquo;s still quite neat that
 they form one :)</li>
 </ul>
 </li>
