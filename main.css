@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM Plex Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root {
+    --a-link-fg: #0099db;
+    --a-visited-fg: #68386c;
+    --main-bg: #ead4aa;
+    --main-fg: #3e2731;
+    --pronouns-fg: #e4a672;
+    --header-bg: #3e2731;
+    --header-fg: #ead4aa;
+    --heading-border: #e8b796;
+}
+
+html {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 22px;
+    margin: 0;
+    padding: 0;
+
+    background-color: var(--main-bg);
+    color: var(--main-fg);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+a:link {
+    color: var(--a-link-fg);
+}
+
+a:visited {
+    color: var(--a-visited-fg);
+}
+
+header {
+    background-color: var(--header-bg);
+    color: var(--header-fg);
+    padding: 1rem;
+}
+header>h1 {
+    display:inline;
+}
+header>span#pronouns {
+    font-style: italic;
+    font-size: 0.7rem;
+    color: var(--pronouns-fg);
+}
+
+main {
+    margin: 2rem;
+}
+
+h1, h2 {
+    font-weight: normal;
+    margin: 0 0 1rem 0;
+    padding: 0;
+}
+h1 {
+    font-size: 1.2rem;
+}
+h2 {
+    font-size: 1.1rem;
+    border-bottom: 2pt solid var(--heading-border);
+}
+
+section {
+    clear: both;
+}
+
+section#opening>h2 {
+    display: none;
+}
+
+img#me {
+    width: 20em;
+    margin: 1em;
+    float: right;
+}
